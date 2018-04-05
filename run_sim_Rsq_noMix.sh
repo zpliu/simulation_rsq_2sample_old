@@ -65,12 +65,12 @@ export -f simulate
 ## MR for the mixed phenotypes
 function TwoSampleMR {
 	simDIR=$1
-	Rscript TwoSampleMR.R  --beta_exp $simDIR/BETA_XG.exp.xls \
-							--beta_out $simDIR/BETA_YG.out.xls \
-							--se_exp $simDIR/SE_XG.exp.xls \
-							--se_out $simDIR/SE_YG.out.xls \
-							--pval_exp $simDIR/PVAL_XG.exp.xls \
-							--pval_out $simDIR/PVAL_YG.out.xls \
+	Rscript TwoSampleMR.R  --beta_exp $simDIR/BETA_XG.exp.xls.gz \
+							--beta_out $simDIR/BETA_YG.out.xls.gz \
+							--se_exp $simDIR/SE_XG.exp.xls.gz \
+							--se_out $simDIR/SE_YG.out.xls.gz \
+							--pval_exp $simDIR/PVAL_XG.exp.xls.gz \
+							--pval_out $simDIR/PVAL_YG.out.xls.gz \
 							--sample_X $sample_X \
 							--sample_Y $sample_Y \
 							--sim_num $sim_num \
@@ -85,7 +85,9 @@ export -f TwoSampleMR
 ##--------------------------------
 simDIR="beta${beta}_maf${min_maf}${max_maf}_snp${snp_num}_sizeX${sample_X}Y${sample_Y}_sim${sim_num}_pleio${pleio_ratio}_rsqGX${rsq_GX}_rsqPG${rsq_PG}_rsqXY${rsq_XY}_rsqC${rsq_C}"
 make_directory $simDIR
-simulate $simDIR
-TwoSampleMR $simDIR
+echo "simulation"
+time simulate $simDIR
+echo "MR"
+time TwoSampleMR $simDIR
 
 

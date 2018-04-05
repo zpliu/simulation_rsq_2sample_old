@@ -305,10 +305,14 @@ all_samples_Y = c(1:sample_Y)
 # write.table(file=paste0(simuDIR, "/geno", geno_symbol, "_raw.xls"), out_raw_geno_X, col.names=all_snps, row.names=all_samples, quote=FALSE, sep="\t")
 write.table(file=paste0(simuDIR, "/geno", geno_symbol, "_standardised.exp.xls"), genoG_X, col.names=all_snps, row.names=all_samples_X, quote=FALSE, sep="\t")
 write.table(file=paste0(simuDIR, "/geno", geno_symbol, "_standardised.out.xls"), genoG_Y, col.names=all_snps, row.names=all_samples_Y, quote=FALSE, sep="\t")
+system(paste("gzip", paste0(simuDIR, "/geno", geno_symbol, "_standardised.exp.xls")))
+system(paste("gzip", paste0(simuDIR, "/geno", geno_symbol, "_standardised.out.xls")))
 
 ## Output phenotype
 write.table(file=paste0(simuDIR, "/pheno", exposure_symbol, ".exp.xls"), pheno_X, col.names=all_simulations, row.names=all_samples_X, quote=FALSE, sep="\t")
 write.table(file=paste0(simuDIR, "/pheno", outcome_symbol, ".out.xls"), pheno_Y, col.names=all_simulations, row.names=all_samples_Y, quote=FALSE, sep="\t")
+system(paste("gzip", paste0(simuDIR, "/pheno", exposure_symbol, ".exp.xls")))
+system(paste("gzip", paste0(simuDIR, "/pheno", outcome_symbol, ".out.xls")))
 
 ## Output epsilon
 # write.table(file=paste0(simuDIR, "/epsilon_", exposure_symbol, ".exp.xls"), epsilon_X, col.names=all_simulations, row.names=all_samples, quote=FALSE, sep="\t")
@@ -317,6 +321,9 @@ write.table(file=paste0(simuDIR, "/pheno", outcome_symbol, ".out.xls"), pheno_Y,
 ## Output c
 write.table(file=paste0(simuDIR, "/c.exp.xls"), phenoX_s1[["cx"]], col.names=all_simulations, row.names=all_samples_X, quote=FALSE, sep="\t")
 write.table(file=paste0(simuDIR, "/c.out.xls"), cy, col.names=all_simulations, row.names=all_samples_Y, quote=FALSE, sep="\t")
+system(paste("gzip", paste0(simuDIR, "/c.exp.xls")))
+system(paste("gzip", paste0(simuDIR, "/c.out.xls")))
+
 
 ## Output genotype ref and effects
 causal_geno_info = cbind(maf, gamma_X, rep(0, times=snp_num))
@@ -334,19 +341,28 @@ message("Writing results: Association test results")
 
 write.table(file=paste0(simuDIR, "/BETA_XG.exp.xls"), Beta_XG, col.names=all_simulations, row.names=all_snps, quote=FALSE, sep="\t")
 write.table(file=paste0(simuDIR, "/BETA_YG.out.xls"), Beta_YG, col.names=all_simulations, row.names=all_snps, quote=FALSE, sep="\t")
+system(paste("gzip", paste0(simuDIR, "/BETA_XG.exp.xls")))
+system(paste("gzip", paste0(simuDIR, "/BETA_YG.out.xls")))
 
 write.table(file=paste0(simuDIR, "/SE_XG.exp.xls"), seBeta_XG, col.names=all_simulations, row.names=all_snps, quote=FALSE, sep="\t")
 write.table(file=paste0(simuDIR, "/SE_YG.out.xls"), seBeta_YG, col.names=all_simulations, row.names=all_snps, quote=FALSE, sep="\t")
+system(paste("gzip", paste0(simuDIR, "/SE_XG.exp.xls")))
+system(paste("gzip", paste0(simuDIR, "/SE_YG.out.xls")))
 
 write.table(file=paste0(simuDIR, "/PVAL_XG.exp.xls"), pval_XG, col.names=all_simulations, row.names=all_snps, quote=FALSE, sep="\t")
 write.table(file=paste0(simuDIR, "/PVAL_YG.out.xls"), pval_YG, col.names=all_simulations, row.names=all_snps, quote=FALSE, sep="\t")
+system(paste("gzip", paste0(simuDIR, "/PVAL_XG.exp.xls")))
+system(paste("gzip", paste0(simuDIR, "/PVAL_YG.out.xls")))
 
 write.table(file=paste0(simuDIR, "/adj.RSQ_XG.exp.xls"), rsq_XG, col.names=all_simulations, row.names=all_snps, quote=FALSE, sep="\t")
 write.table(file=paste0(simuDIR, "/adj.RSQ_YG.out.xls"), rsq_YG, col.names=all_simulations, row.names=all_snps, quote=FALSE, sep="\t")
+system(paste("gzip", paste0(simuDIR, "/adj.RSQ_XG.exp.xls")))
+system(paste("gzip", paste0(simuDIR, "/adj.RSQ_YG.out.xls")))
 
 write.table(file=paste0(simuDIR, "/RESIDUALSE_XG.exp.xls"), residualSE_XG, col.names=all_simulations, row.names=all_snps, quote=FALSE, sep="\t")
 write.table(file=paste0(simuDIR, "/RESIDUALSE_YG.out.xls"), residualSE_YG, col.names=all_simulations, row.names=all_snps, quote=FALSE, sep="\t")
-
+system(paste("gzip", paste0(simuDIR, "/RESIDUALSE_XG.exp.xls")))
+system(paste("gzip", paste0(simuDIR, "/RESIDUALSE_YG.out.xls")))
 
 
 

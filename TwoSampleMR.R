@@ -29,12 +29,12 @@ args <- parser$parse_args()
 registerDoMC(args$thread)  #change the 2 to your number of CPU cores
 
 message("MR: Reading files")
-beta_exp = fread(args$beta_exp, header=FALSE, skip=1, sep="\t")
-beta_out = fread(args$beta_out, header=FALSE, skip=1, sep="\t")
-se_exp = fread(args$se_exp, header=FALSE, skip=1, sep="\t")
-se_out = fread(args$se_out, header=FALSE, skip=1, sep="\t")
-pval_exp = fread(args$pval_exp, header=FALSE, skip=1, sep="\t")
-pval_out = fread(args$pval_out, header=FALSE, skip=1, sep="\t")
+beta_exp = fread(paste("gzip -dc", args$beta_exp), header=FALSE, skip=1, sep="\t")
+beta_out = fread(paste("gzip -dc", args$beta_out), header=FALSE, skip=1, sep="\t")
+se_exp = fread(paste("gzip -dc", args$se_exp), header=FALSE, skip=1, sep="\t")
+se_out = fread(paste("gzip -dc", args$se_out), header=FALSE, skip=1, sep="\t")
+pval_exp = fread(paste("gzip -dc", args$pval_exp), header=FALSE, skip=1, sep="\t")
+pval_out = fread(paste("gzip -dc", args$pval_out), header=FALSE, skip=1, sep="\t")
 
 ## Using an existing data frame
 SNP = beta_exp[[1]]
