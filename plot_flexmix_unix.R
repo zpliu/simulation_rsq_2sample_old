@@ -115,7 +115,7 @@ title_para = paste0("beta=",beta, " | maf=",maf, " | sizeX=",sample_X, " | sizeY
 p1 <- ggplot(data=out, aes(x=factor(rsqPG_list), y=out$power_ave)) + ylim(0, 1) + # fill=factor(res_out$dir)
   geom_bar(stat = "identity", position = 'dodge', width = 0.5) +
   # geom_errorbar(limits, position = 'dodge', width = 0.2) + ylim(0,1) +
-  labs(x = "Variance explained by pleiotropic SNPs in exposure", y = "true positive rate") +
+  labs(x = "Variance explained by pleiotropic SNPs", y = "true positive rate") +
   ggtitle(title_para)
 
   # scale_fill_discrete(name = "Direction")
@@ -126,7 +126,7 @@ p1 <- ggplot(data=out, aes(x=factor(rsqPG_list), y=out$power_ave)) + ylim(0, 1) 
 p2 <- ggplot(data=out, aes(x=factor(rsqPG_list), y=out$fp_ave)) + ylim(0, 1) + # fill=factor(res_out$dir)
   geom_bar(stat = "identity", position = 'dodge', width = 0.5) +
   # geom_errorbar(limits, position = 'dodge', width = 0.2) + ylim(0,1) +
-  labs(x = "Variance explained by pleiotropic SNPs in exposure", y = "false positive rate")
+  labs(x = "Variance explained by pleiotropic SNPs", y = "false positive rate")
   # ggtitle(title_para)
   # scale_fill_discrete(name = "Direction")
 
