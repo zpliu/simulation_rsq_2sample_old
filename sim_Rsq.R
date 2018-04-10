@@ -311,8 +311,10 @@ system(paste("gzip", paste0(simuDIR, "/geno", geno_symbol, "_standardised.out.xl
 ## Output phenotype
 write.table(file=paste0(simuDIR, "/pheno", exposure_symbol, ".exp.xls"), pheno_X, col.names=all_simulations, row.names=all_samples_X, quote=FALSE, sep="\t")
 write.table(file=paste0(simuDIR, "/pheno", outcome_symbol, ".out.xls"), pheno_Y, col.names=all_simulations, row.names=all_samples_Y, quote=FALSE, sep="\t")
+write.table(file=paste0(simuDIR, "/pheno", outcome_symbol, ".exp2out.xls"), phenoX_s2[["phenoX"]], col.names=all_simulations, row.names=all_samples_Y, quote=FALSE, sep="\t")
 system(paste("gzip", paste0(simuDIR, "/pheno", exposure_symbol, ".exp.xls")))
 system(paste("gzip", paste0(simuDIR, "/pheno", outcome_symbol, ".out.xls")))
+system(paste("gzip", paste0(simuDIR, "/pheno", outcome_symbol, ".exp2out.xls")))
 
 ## Output epsilon
 # write.table(file=paste0(simuDIR, "/epsilon_", exposure_symbol, ".exp.xls"), epsilon_X, col.names=all_simulations, row.names=all_samples, quote=FALSE, sep="\t")
