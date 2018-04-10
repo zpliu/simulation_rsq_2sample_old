@@ -15,6 +15,7 @@ library(doMC) # Unix only
 ###     + Control Rsq(causal), Rsq(pleiotropy), Rsq(C) in exposure;
 ###     + Control Rsq(XY), Rsq(pleiotropy) in outcome
 ###   + Two different sample sizes for exposure and outcome
+###   + Compress outputs as gz files
 
 ### X = g + pgX + c + eX, where
 ###   g = Wu, W is the causal SNP matrix, u is the effect (i.e. gamma in the script);
