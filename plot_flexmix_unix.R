@@ -69,7 +69,7 @@ rsqC = 0.2
 pleio_ratio = 0.1
 pleio_snp_num = round(snp_num*as.numeric(pleio_ratio), digits=0)
 
-rsqPG_list = c("0.03","0.04","0.05","0.06","0.07","0.08","0.09","0.1","0.15","0.2","0.3")
+rsqPG_list = c("0.03","0.04","0.05","0.06","0.07","0.08","0.09","0.1")
 
 power_ave = c()
 power_sd = c()
@@ -112,9 +112,10 @@ title_para = paste0("beta=",beta, " | maf=",maf, " | sizeX=",sample_X, " | sizeY
 
 # limits <- aes(ymax=out$power_ave+out$power_sd,
 #               ymin=out$power_ave-out$power_sd)
-p1 <- ggplot(data=out, aes(x=factor(rsqPG_list), y=out$power_ave)) + ylim(0, 1) + # fill=factor(res_out$dir)
+p1 <- ggplot(data=out, aes(x=factor(rsqPG_list), y=out$power_ave)) +
   geom_bar(stat = "identity", position = 'dodge', width = 0.5) +
-  # geom_errorbar(limits, position = 'dodge', width = 0.2) + ylim(0,1) +
+  scale_y_continuous(breaks = seq(0, 1.0, 0.1), limits=c(0,1)) +
+  # geom_errorbar(limits, position = 'dodge', width = 0.2) + 
   labs(x = "Variance explained by pleiotropic SNPs", y = "true positive rate") +
   ggtitle(title_para)
 
@@ -123,9 +124,10 @@ p1 <- ggplot(data=out, aes(x=factor(rsqPG_list), y=out$power_ave)) + ylim(0, 1) 
 
 # limits <- aes(ymax=out$fp_ave+out$fp_sd,
 #               ymin=out$fp_ave-out$fp_sd)
-p2 <- ggplot(data=out, aes(x=factor(rsqPG_list), y=out$fp_ave)) + ylim(0, 1) + # fill=factor(res_out$dir)
+p2 <- ggplot(data=out, aes(x=factor(rsqPG_list), y=out$fp_ave)) +
   geom_bar(stat = "identity", position = 'dodge', width = 0.5) +
-  # geom_errorbar(limits, position = 'dodge', width = 0.2) + ylim(0,1) +
+  scale_y_continuous(breaks = seq(0, 1.0, 0.1), limits=c(0,1)) +
+  # geom_errorbar(limits, position = 'dodge', width = 0.2) + 
   labs(x = "Variance explained by pleiotropic SNPs", y = "false positive rate")
   # ggtitle(title_para)
   # scale_fill_discrete(name = "Direction")

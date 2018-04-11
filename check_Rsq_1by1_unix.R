@@ -1,8 +1,9 @@
+args = commandArgs(trailingOnly=TRUE)
 # library(argparse)
 library(data.table)
 library(foreach)
 library(doMC) # Unix only
-registerDoMC(12)
+registerDoMC(10)
 
 beta = "1.0"
 maf = '0.010.5'
@@ -14,12 +15,12 @@ sim_num = 1000
 rsqGX = 0.4
 rsqXY = 0.05
 rsqC = 0.2
-rsqPG=0.1
+rsqPG = as.numeric(args[1])
 
 pleio_ratio=0.1
 pleio_snp_num = round(snp_num*as.numeric(pleio_ratio), digits=0)
 
-message("Read files ...")
+# message(rsqPG, "  Read files ...")
 sim_para = paste0("beta",beta,"_maf",maf,"_snp",snp_num,"_sizeX",sample_X,"Y",sample_Y,"_sim",sim_num,"_pleio", pleio_ratio,"_rsqGX",rsqGX, "_rsqPG",rsqPG,"_rsqXY",rsqXY,"_rsqC", rsqC)
 phenoX = fread(paste("gzip -dc", paste0(sim_para,"/phenoX.exp.xls.gz")), header=FALSE, skip=1, sep="\t")
 phenoY = fread(paste("gzip -dc", paste0(sim_para,"/phenoY.out.xls.gz")), header=FALSE, skip=1, sep="\t")
@@ -33,7 +34,7 @@ rsqY_known = fread(paste("gzip -dc", paste0(sim_para,"/adj.RSQ_YG.out.xls.gz")),
 
 
 # Parallel test: 
-cat("rsqGX = ")
+# message("rsqGX = ")
 # PctExp = c()
 # PctExp <- foreach (j=1:sim_num) %dopar% {  
 #   PctExpTMP = 0
@@ -46,10 +47,10 @@ cat("rsqGX = ")
 # rsqGX <- mean(as.numeric(PctExp))
 rsqGX = 0 
 for (i in 1:snp_num) { rsqGX = rsqGX + mean(as.numeric(rsqX_known[i,-1])) }
-message(rsqGX)
+# message(rsqGX)
 
 
-cat("rsqPX = ")
+# message("rsqPX = ")
 # PctExp = c()
 # PctExp <- foreach (j=1:sim_num) %dopar% { 
 #   PctExpTMP = 0
@@ -66,10 +67,10 @@ for (i in 1:pleio_snp_num) {
   k = i + snp_num
   rsqPX = rsqPX + mean(as.numeric(rsqX_known[k,-1])) 
 }
-message(rsqPX)
+# message(rsqPX)
 
 
-cat("rsqPY = ")
+# message("rsqPY = ")
 # PctExp = c()
 # PctExp <- foreach (j=1:sim_num) %dopar% { 
 #   PctExpTMP = 0
@@ -86,37 +87,37 @@ for (i in 1:pleio_snp_num) {
   k = i + snp_num
   rsqPY = rsqPY + mean(as.numeric(rsqX_known[k,-1]))  
 }
-message(rsqPY)
+# message(rsqPY)
 
 
-message("rsqXY = ")
+# message("rsqXY = ")
 PctExp = c()
 PctExp <- foreach (j=1:sim_num) %dopar% { 
     fit = summary(lm(phenoY[[j+1]] ~ phenoX2Y[[j+1]]))
     fit$adj.r.squared
 }
 rsqXY <- mean(as.numeric(PctExp))
-message(rsqXY)
+# message(rsqXY)
 
 
-cat("rsqCX = ")
+# message("rsqCX = ")
 PctExp = c()
 PctExp <- foreach (j=1:sim_num) %dopar% { 
     fit = summary(lm(phenoX[[j+1]] ~ cx[[j+1]]))
     fit$adj.r.squared
 }
 rsqCX <- mean(as.numeric(PctExp))
-message(rsqCX)
+# message(rsqCX)
 
 
-cat("rsqCY = ")
+# message("rsqCY = ")
 PctExp = c()
 PctExp <- foreach (j=1:sim_num) %dopar% { 
     fit = summary(lm(phenoY[[j+1]] ~ cy[[j+1]]))
     fit$adj.r.squared
 }
 rsqCY <- mean(as.numeric(PctExp))
-message(rsqCY)
+# message(rsqCY)
 
 
-message(paste("RsqGX:",rsqGX, "RsqPX:",rsqPX, "RsqXY:",rsqXY, "RsqPY:",rsqPY, "RsqCX:", rsqCX, "RsqCY:",rsqCY))
+message(paste(rsqPG,"-","RsqGX:",rsqGX, "RsqPX:",rsqPX, "RsqXY:",rsqXY, "RsqPY:",rsqPY, "RsqCX:", rsqCX, "RsqCY:",rsqCY))
